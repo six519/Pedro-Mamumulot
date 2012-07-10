@@ -25,6 +25,7 @@ class MainGame(object):
 		self.kalaban2 = Kalaban(self.screen)
 		self.stage = 0
 		self.score = 0
+		self.lives = 5
 		
 	def generateRandomState(self):
 		return randrange(4)
@@ -50,7 +51,7 @@ class MainGame(object):
 														
 			if self.stage > 0:
 				key_pressed = pygame.key.get_pressed()
-				pygame.display.set_caption("%s (Score: %s)" % (GAME_TITLE, self.score))
+				pygame.display.set_caption("%s (Score: %s | Lives: %s)" % (GAME_TITLE, self.score, self.lives))
 			
 				if key_pressed[pygame.K_RIGHT]:
 					if not self.bida.isCollidedTo(self.drum1) and not self.bida.isCollidedTo(self.drum2) and not self.bida.isCollidedTo(self.drum3) and not self.bida.isCollidedTo(self.drum4):
@@ -182,6 +183,8 @@ class MainGame(object):
 			elif self.bida.lastState == STATE_DOWN:
 				self.bida.y -= WALKING_SPEED
 				
+		self.bida.show((self.bida.x, self.bida.y))
+				
 		if self.bida.isCollidedTo(self.buto2):
 			self.score += SCORE_PLUS
 			self.buto2.hide()
@@ -201,8 +204,11 @@ class MainGame(object):
 		if self.bida.isCollidedTo(self.lata3):
 			self.score += SCORE_PLUS
 			self.lata3.hide()
-		
-		self.bida.show((self.bida.x, self.bida.y))				
+			
+		if self.bida.isCollidedTo(self.kalaban1) or self.bida.isCollidedTo(self.kalaban2):
+			self.bida.x = 0
+			self.bida.y = 0
+			self.lives -= 1 				
 		
 if __name__ == "__main__":
 	game = MainGame()
