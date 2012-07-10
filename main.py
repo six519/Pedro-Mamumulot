@@ -96,7 +96,20 @@ class MainGame(object):
 		#load main background
 		self.stage = 0
 		self.loadBackground('main.bmp')
-		
+	
+	def setSpriteState(self, spriteString):
+		if self.generateRandomState() == STATE_RIGHT:
+			exec("self.%s.lastState = STATE_RIGHT" % spriteString)
+			exec('self.%s.moveString = "self.%s.moveRight()"' % (spriteString, spriteString))
+		elif self.generateRandomState() == STATE_LEFT:
+			exec("self.%s.lastState = STATE_LEFT" % spriteString)
+			exec('self.%s.moveString = "self.%s.moveLeft()"' % (spriteString, spriteString))
+		elif self.generateRandomState() == STATE_UP:
+			exec("self.%s.lastState = STATE_UP" % spriteString)
+			exec('self.%s.moveString = "self.%s.moveUp()"' % (spriteString, spriteString))
+		elif self.generateRandomState() == STATE_DOWN:
+			exec("self.%s.lastState = STATE_DOWN" % spriteString)
+			exec('self.%s.moveString = "self.%s.moveDown()"' % (spriteString, spriteString))
 		
 	def loadRoom1(self):			
 		self.stage = 1	
@@ -113,18 +126,7 @@ class MainGame(object):
 		
 		if not self.kalaban1.autoMoving:
 			self.kalaban1.showAndSet((300, 180))
-			if self.generateRandomState() == STATE_RIGHT:
-				self.kalaban1.lastState = STATE_RIGHT
-				self.kalaban1.moveString = "self.kalaban1.moveRight()"
-			elif self.generateRandomState() == STATE_LEFT:
-				self.kalaban1.lastState = STATE_LEFT
-				self.kalaban1.moveString = "self.kalaban1.moveLeft()"
-			elif self.generateRandomState() == STATE_UP:
-				self.kalaban1.lastState = STATE_UP
-				self.kalaban1.moveString = "self.kalaban1.moveUp()"
-			elif self.generateRandomState() == STATE_DOWN:
-				self.kalaban1.lastState = STATE_DOWN
-				self.kalaban1.moveString = "self.kalaban1.moveDown()"
+			self.setSpriteState("kalaban1")
 			self.kalaban1.autoMoving = True
 		
 		exec(self.kalaban1.moveString)
@@ -132,18 +134,7 @@ class MainGame(object):
 		
 		if self.kalaban1.counter == RANDOM_COUNTER:
 			self.kalaban1.counter = 0
-			if self.generateRandomState() == STATE_RIGHT:
-				self.kalaban1.lastState = STATE_RIGHT
-				self.kalaban1.moveString = "self.kalaban1.moveRight()"
-			elif self.generateRandomState() == STATE_LEFT:
-				self.kalaban1.lastState = STATE_LEFT
-				self.kalaban1.moveString = "self.kalaban1.moveLeft()"
-			elif self.generateRandomState() == STATE_UP:
-				self.kalaban1.lastState = STATE_UP
-				self.kalaban1.moveString = "self.kalaban1.moveUp()"
-			elif self.generateRandomState() == STATE_DOWN:
-				self.kalaban1.lastState = STATE_DOWN
-				self.kalaban1.moveString = "self.kalaban1.moveDown()"
+			self.setSpriteState("kalaban1")
 		
 		if self.kalaban1.isCollidedTo(self.drum1) or self.kalaban1.isCollidedTo(self.drum2) or self.kalaban1.isCollidedTo(self.drum3) or self.kalaban1.isCollidedTo(self.drum4) or self.kalaban1.isCollidedTo(self.kalaban2):
 			if self.kalaban1.lastState == STATE_RIGHT:
@@ -154,34 +145,11 @@ class MainGame(object):
 				self.kalaban1.y += WALKING_SPEED 
 			elif self.kalaban1.lastState == STATE_DOWN:
 				self.kalaban1.y -= WALKING_SPEED
-			
-			if self.generateRandomState() == STATE_RIGHT:
-				self.kalaban1.lastState = STATE_RIGHT
-				self.kalaban1.moveString = "self.kalaban1.moveRight()"
-			elif self.generateRandomState() == STATE_LEFT:
-				self.kalaban1.lastState = STATE_LEFT
-				self.kalaban1.moveString = "self.kalaban1.moveLeft()"
-			elif self.generateRandomState() == STATE_UP:
-				self.kalaban1.lastState = STATE_UP
-				self.kalaban1.moveString = "self.kalaban1.moveUp()"
-			elif self.generateRandomState() == STATE_DOWN:
-				self.kalaban1.lastState = STATE_DOWN
-				self.kalaban1.moveString = "self.kalaban1.moveDown()"
+			self.setSpriteState("kalaban1")
 
 		if not self.kalaban2.autoMoving:
 			self.kalaban2.showAndSet((408, 207))
-			if self.generateRandomState() == STATE_RIGHT:
-				self.kalaban2.lastState = STATE_RIGHT
-				self.kalaban2.moveString = "self.kalaban2.moveRight()"
-			elif self.generateRandomState() == STATE_LEFT:
-				self.kalaban2.lastState = STATE_LEFT
-				self.kalaban2.moveString = "self.kalaban2.moveLeft()"
-			elif self.generateRandomState() == STATE_UP:
-				self.kalaban2.lastState = STATE_UP
-				self.kalaban2.moveString = "self.kalaban2.moveUp()"
-			elif self.generateRandomState() == STATE_DOWN:
-				self.kalaban2.lastState = STATE_DOWN
-				self.kalaban2.moveString = "self.kalaban2.moveDown()"
+			self.setSpriteState("kalaban2")
 			self.kalaban2.autoMoving = True
 		
 		exec(self.kalaban2.moveString)
@@ -189,18 +157,7 @@ class MainGame(object):
 		
 		if self.kalaban2.counter == RANDOM_COUNTER:
 			self.kalaban2.counter = 0
-			if self.generateRandomState() == STATE_RIGHT:
-				self.kalaban2.lastState = STATE_RIGHT
-				self.kalaban2.moveString = "self.kalaban2.moveRight()"
-			elif self.generateRandomState() == STATE_LEFT:
-				self.kalaban2.lastState = STATE_LEFT
-				self.kalaban2.moveString = "self.kalaban2.moveLeft()"
-			elif self.generateRandomState() == STATE_UP:
-				self.kalaban2.lastState = STATE_UP
-				self.kalaban2.moveString = "self.kalaban2.moveUp()"
-			elif self.generateRandomState() == STATE_DOWN:
-				self.kalaban2.lastState = STATE_DOWN
-				self.kalaban2.moveString = "self.kalaban2.moveDown()"
+			self.setSpriteState("kalaban2")
 		
 		if self.kalaban2.isCollidedTo(self.drum1) or self.kalaban2.isCollidedTo(self.drum2) or self.kalaban2.isCollidedTo(self.drum3) or self.kalaban2.isCollidedTo(self.drum4) or self.kalaban2.isCollidedTo(self.kalaban1):
 			
@@ -213,18 +170,7 @@ class MainGame(object):
 			elif self.kalaban2.lastState == STATE_DOWN:
 				self.kalaban2.y -= WALKING_SPEED
 			
-			if self.generateRandomState() == STATE_RIGHT:
-				self.kalaban2.lastState = STATE_RIGHT
-				self.kalaban2.moveString = "self.kalaban2.moveRight()"
-			elif self.generateRandomState() == STATE_LEFT:
-				self.kalaban2.lastState = STATE_LEFT
-				self.kalaban2.moveString = "self.kalaban2.moveLeft()"
-			elif self.generateRandomState() == STATE_UP:
-				self.kalaban2.lastState = STATE_UP
-				self.kalaban2.moveString = "self.kalaban2.moveUp()"
-			elif self.generateRandomState() == STATE_DOWN:
-				self.kalaban2.lastState = STATE_DOWN
-				self.kalaban2.moveString = "self.kalaban2.moveDown()"
+			self.setSpriteState("kalaban2")
 		
 		if self.bida.isCollidedTo(self.drum1) or self.bida.isCollidedTo(self.drum2) or self.bida.isCollidedTo(self.drum3) or self.bida.isCollidedTo(self.drum4):
 			if self.bida.lastState == STATE_RIGHT:
