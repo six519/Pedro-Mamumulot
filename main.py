@@ -50,9 +50,9 @@ class MainGame(object):
 						if self.stage == 0:
 							self.stage = 1
 					elif event.key == pygame.K_ESCAPE:
-						exit()
+						exit()	
 														
-			if self.stage > 0:
+			if self.stage != 0:
 				key_pressed = pygame.key.get_pressed()
 				pygame.display.set_caption("%s (Score: %s | Lives: %s)" % (GAME_TITLE, self.score, self.lives))
 			
@@ -76,13 +76,15 @@ class MainGame(object):
 						self.bida.moveDown()
 					
 					self.bida.lastState = STATE_DOWN
-
+		
 			#Room load here
 			if self.stage == 0:
 				self.loadRoomMain()
 			if self.stage == 1:
-				self.loadRoom1()			
-			
+				self.loadRoom1()
+			if self.stage == -1:
+				self.loadGameOver()
+		
 			self.clock.tick(FPS)
 			pygame.display.flip()	
 	
@@ -100,6 +102,14 @@ class MainGame(object):
 		#load main background
 		self.stage = 0
 		self.loadBackground('main.bmp')
+		
+	def loadGameOver(self):
+		self.stage = -1
+		
+		for n in range(BaseSprite.spriteCount):
+			BaseSprite.inst[n].hide()
+			
+		self.loadBackground('gameover.bmp')
 	
 	def setSpriteState(self, spriteString):
 		if self.generateRandomState() == STATE_RIGHT:
@@ -211,7 +221,10 @@ class MainGame(object):
 		if self.bida.isCollidedTo(self.kalaban1) or self.bida.isCollidedTo(self.kalaban2):
 			self.bida.x = 0
 			self.bida.y = 0
-			self.lives -= 1 				
+			self.lives -= 1
+		
+		if self.lives == 0:
+			self.stage = -1				
 		
 if __name__ == "__main__":
 	game = MainGame()
