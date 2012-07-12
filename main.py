@@ -3,6 +3,7 @@ from pygame.locals import *
 from settings import *
 from sprites import *
 from random import randrange
+from base import BaseSprite
 
 class MainGame(object):
 	

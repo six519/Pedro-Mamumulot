@@ -4,6 +4,8 @@ from settings import *
 
 class BaseSprite(pygame.sprite.Sprite):
     
+    spriteCount = 0
+    
     def __init__(self, screen):
         pygame.sprite.Sprite.__init__(self)
         self.screen = screen
@@ -16,8 +18,7 @@ class BaseSprite(pygame.sprite.Sprite):
         self.autoMoving = False
         self.moveString = ""
         self.counter = 0
-        
-        #self.image, self.rect = self.loadImage(mainImage)
+        BaseSprite.spriteCount += 1
     
     def loadImage(self, imageFullPath):
         try:
