@@ -39,7 +39,7 @@ class MainGame(object):
 		while self.gameRunning:
 			
 			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
+				if event.type == pygame.QUIT or event.key == pygame.K_ESCAPE:
 					return
 				elif event.type == pygame.KEYUP:
 					if self.stage > 0:
