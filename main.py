@@ -40,8 +40,8 @@ class MainGame(object):
 		while self.gameRunning:
 			
 			for event in pygame.event.get():
-				if event.type == pygame.QUIT or event.key == pygame.K_ESCAPE:
-					return
+				if event.type == pygame.QUIT:
+					exit()
 				elif event.type == pygame.KEYUP:
 					if self.stage > 0:
 						self.bida.noMove()
@@ -49,6 +49,8 @@ class MainGame(object):
 					if event.key == pygame.K_RETURN:
 						if self.stage == 0:
 							self.stage = 1
+					elif event.key == pygame.K_ESCAPE:
+						exit()
 														
 			if self.stage > 0:
 				key_pressed = pygame.key.get_pressed()
