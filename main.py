@@ -84,6 +84,8 @@ class MainGame(object):
 				self.loadRoom1()
 			if self.stage == -1:
 				self.loadGameOver()
+			if self.stage == 2:
+				self.loadRoom2()
 		
 			self.clock.tick(FPS)
 			pygame.display.flip()	
@@ -103,12 +105,13 @@ class MainGame(object):
 		self.stage = 0
 		self.loadBackground('main.bmp')
 		
-	def loadGameOver(self):
-		self.stage = -1
-		
+	def hideAllSprites(self):
 		for n in range(BaseSprite.spriteCount):
 			BaseSprite.inst[n].hide()
-			
+		
+	def loadGameOver(self):
+		self.stage = -1
+		self.hideAllSprites()
 		self.loadBackground('gameover.bmp')
 	
 	def setSpriteState(self, spriteString):
@@ -124,6 +127,9 @@ class MainGame(object):
 		elif self.generateRandomState() == STATE_DOWN:
 			exec("self.%s.lastState = STATE_DOWN" % spriteString)
 			exec('self.%s.moveString = "self.%s.moveDown()"' % (spriteString, spriteString))
+	
+	def loadRoom2(self):
+		self.loadBackground('room2.bmp')
 		
 	def loadRoom1(self):			
 		self.stage = 1	
@@ -224,7 +230,11 @@ class MainGame(object):
 			self.lives -= 1
 		
 		if self.lives == 0:
-			self.stage = -1				
+			self.stage = -1
+		
+		if self.score == 50:
+			self.hideAllSprites()
+			self.stage = 2			
 		
 if __name__ == "__main__":
 	game = MainGame()
